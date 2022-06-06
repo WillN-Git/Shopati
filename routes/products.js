@@ -7,20 +7,36 @@ const router = express.Router()
 const multer = require('multer')
 
 
+//============================ FILE UPLOADING
+const FILE_TYPE_MAP = { // Allowed file upload in the backend
+    'image/png': 'png',
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpeg'
+}
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'public/uploads')
+        const isValidFile = FILE_TYPE_MAP[file.mimetype]
+        let uploadErr = new Error('Invalid Image type')
+
+        if(isValidFile) {
+            uploadErr = null
+        }
+
+        cb(uploadErr, 'public/uploads')
     },
     filename: function (req, file, cb) {
-        const fileName = file.originalname.split(' ').join('-')
+        const fileName = file.originalname.replace(' ', '-')
+        const ext = FILE_TYPE_MAP[file.mimetype]
 
-        cb(null, fileName + '-' + uniqueSuffix + Date.now())
+        cb(null, `${fileName}-${Date.now()}.${ext}`)
     }
 })
 
 const uploadOptions = multer({ storage })
 
-//======================= Route
+
+//============================ ROUTES
 
 // Root
 router.route('/')
@@ -42,12 +58,17 @@ router.route('/')
     })
     .post(uploadOptions.single('image'), async (req, res) =>{
         const cat = await Category.findById(req.body.category)
-        const fileName = req.file.filename
-        const basePath = `${req.protocol}://${req.get('host')}/public/upload/`
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+        const file = req.file
 
+        if(!file) {
+            return res.status(400).send('No image in the request')
+        }
         if(!cat) {
             return res.status(400).send('Invalid Category')
         }
+
+        const fileName = req.file.filename
 
         let product = new Product({
             name: req.body.name,
@@ -94,14 +115,29 @@ router.route('/:id')
         if(!category) {
             return res.status(400).send('Invalid Category')
         }
+
+        const oldProd = Product.findById(req.params.id)
+
+        if(!oldProd) {
+            return res.status(400).send('Invalid Product ID')
+        }
+
+        const file = req.file
+        let image = oldProd.image;
+
+        if(file) {
+            const fileName = file.filename
+            const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+            image = `${basePath}${fileName}`
+        }
         
-        const product = await Product.findByIdAndDelete(
+        const product = await Product.findByIdAndUpdate(
             req.params.id,
             {
                 name: req.body.name,
                 description: req.body.description,
                 richDescription: req.body.richDescription,
-                image: req.body.image,
+                image,
                 brand: req.body.brand,
                 price: req.body.price,
                 category: req.body.category,
@@ -120,7 +156,7 @@ router.route('/:id')
         res.send(product)
     })
     .delete((req, res) => {
-        Product.findByIdAndUpdate(req.params.id)
+        Product.findByIdAndDelete(req.params.id)
                 .then(product => {
                     if(product) {
                         return res.status(200).json({ success: true, message: 'The product is deleted' })
@@ -161,5 +197,37 @@ router.route('/get/count')
 
         res.send({ productCount })
     })
+
+// Gallery images
+router.route('/gallery-images/:id')
+    .put(uploadOptions.array('images', 10), async (req, res) => {
+        if(!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Product ID')
+        }
+
+        let images = []
+        const files = req.files
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`
+
+        if(files) {
+            files.map(({ filename }) => { 
+                images.push(`${basePath}${filename}`) 
+            })
+        }
+
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            { images },
+            { new: true }
+        )
+
+        if(!product) {
+            return res.status(500).send('The Product can\'t be updated')
+        }
+
+        res.send(product)
+
+    })
+    
 
 module.exports = router
