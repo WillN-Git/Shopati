@@ -2,3 +2,21 @@
 @import './base/colors.scss';
 @import './base/mixins.scss';
 @import './base/base.scss';
+
+// Shared
+@import './apps/shop/shared/header.scss';
+@import './apps/shop/shared/footer.scss';
+
+// Utils
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+
+// Pages
+@import './apps/shop/pages/homepage.scss';
+@import './apps/shop/pages/productlist.scss';
+
+// Libs
+@import './libs/ui/ui.scss';
+@import './libs/products/productitem.scss';

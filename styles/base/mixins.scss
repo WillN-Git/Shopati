@@ -1,0 +1,9 @@
+@mixin zero-gap {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin reset-list {
+    @include zero-gap;
+    list-style: none;
+}

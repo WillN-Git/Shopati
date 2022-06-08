@@ -10,8 +10,10 @@ import { ProductlistComponent } from './pages/productlist/productlist.component'
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
-// Module
+// UI/UX
 import  { UIModule } from '@shopati/ui'
+import { AccordionModule } from 'primeng/accordion'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 const routes: Routes = [
   {
@@ -24,6 +26,11 @@ const routes: Routes = [
   },
 ];
 
+const UXModules = [
+  AccordionModule,
+  BrowserAnimationsModule
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +40,12 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes), UIModule],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    UIModule, 
+    ...UXModules
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -18,7 +18,8 @@
       "@shopati/orders": ["libs/orders/src/index.ts"],
       "@shopati/products": ["libs/products/src/index.ts"],
       "@shopati/ui": ["libs/ui/src/index.ts"],
-      "@shopati/users": ["libs/users/src/index.ts"]
+      "@shopati/users": ["libs/users/src/index.ts"],
+      "@types": ["types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
