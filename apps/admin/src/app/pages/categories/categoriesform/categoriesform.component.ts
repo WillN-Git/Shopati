@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'admin-categoriesform',
   templateUrl: './categoriesform.component.html',
-  styles: [],
 })
 export class CategoriesformComponent implements OnInit {
   // @ts-ignore
@@ -87,7 +86,7 @@ export class CategoriesformComponent implements OnInit {
 
   private _updateCategory(category: Category) {
     this.categoriesService.updateCategory(category).subscribe(
-      res => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'success',
@@ -98,7 +97,7 @@ export class CategoriesformComponent implements OnInit {
           this.location.back();
         }, 2000);
       },
-      err => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'error',
@@ -110,18 +109,18 @@ export class CategoriesformComponent implements OnInit {
 
   private _addCategory(category: Category) {
     this.categoriesService.createCategory(category).subscribe(
-      res => {
+      () => {
         this.messageService.add({
           severity: 'success',
           summary: 'success',
-          detail: 'Category is created!',
+          detail: `Category ${category.name} is created!`,
         });
 
         setTimeout(() => {
           this.location.back();
         }, 2000);
       },
-      err => {
+      () => {
         this.messageService.add({
           severity: 'error',
           summary: 'error',

@@ -22,8 +22,7 @@
                 <p-table [value]="categories" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
                             <th>Icon</th>
                             <th>Color</th>
                             <th></th>
@@ -31,12 +30,22 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-category>
                         <tr>
-                            <td>{{category.id}}</td>
                             <td>{{category.name}}</td>
-                            <td>{{category.icon}}</td>
                             <td>
-                                <div style="height: 24px; width: 24px;display: inline-block;" [style.background-color]="category.color"></div>
-                                &nbsp;&nbsp;{{category.color}}
+                                <i
+                                    style="font-size: 1.5rem"
+                                    class="mr-2 pi"
+                                    [ngClass]="'pi-' + category.icon"
+                                ></i>
+                                {{category.icon}}
+                            </td>
+                            <td>
+                                <div
+                                    class="mr-2"
+                                    style="height: 24px; width: 24px;display: inline-block;" 
+                                    [style.background-color]="category.color"
+                                ></div>
+                                {{category.color}}
                             </td>
                             <td>
                                 <p-button
