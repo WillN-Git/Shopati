@@ -24,11 +24,17 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
+import { EditorModule } from 'primeng/editor';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ProductsComponent } from './pages/products/products.component';
+import { ProductsformComponent } from './pages/products/productsform/productsform.component';
 
 const routes: Routes = [
   {
@@ -51,6 +57,18 @@ const routes: Routes = [
         path: 'categories/form/:id',
         component: CategoriesformComponent,
       },
+      {
+        path: 'products',
+        component: ProductsComponent,
+      },
+      {
+        path: 'products/form',
+        component: ProductsformComponent,
+      },
+      {
+        path: 'products/form/:id',
+        component: ProductsformComponent,
+      },
     ],
   },
 ];
@@ -61,12 +79,17 @@ const UXModules = [
   ButtonModule,
   TableModule,
   InputTextModule,
+  InputNumberModule,
+  InputSwitchModule,
+  InputTextareaModule,
   FormsModule,
   ToastModule,
+  DropdownModule,
+  EditorModule,
   ColorPickerModule,
   ReactiveFormsModule,
   ConfirmDialogModule,
-  BrowserAnimationsModule
+  BrowserAnimationsModule,
 ];
 
 @NgModule({
@@ -78,6 +101,8 @@ const UXModules = [
     SidebarComponent,
     CategoriesComponent,
     CategoriesformComponent,
+    ProductsComponent,
+    ProductsformComponent,
   ],
   imports: [
     BrowserModule,
