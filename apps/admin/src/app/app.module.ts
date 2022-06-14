@@ -11,6 +11,9 @@ import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoriesformComponent } from './pages/categories/categoriesform/categoriesform.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { ProductsformComponent } from './pages/products/productsform/productsform.component';
+import { UsersComponent } from './pages/users/users.component';
 
 // Services
 import { MessageService } from 'primeng/api';
@@ -24,7 +27,9 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
 import { EditorModule } from 'primeng/editor';
+import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ColorPickerModule } from 'primeng/colorpicker';
@@ -33,8 +38,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProductsComponent } from './pages/products/products.component';
-import { ProductsformComponent } from './pages/products/productsform/productsform.component';
+import { UsersformComponent } from './pages/users/usersform/usersform.component';
 
 const routes: Routes = [
   {
@@ -69,6 +73,18 @@ const routes: Routes = [
         path: 'products/form/:id',
         component: ProductsformComponent,
       },
+      {
+        path: 'users',
+        component: UsersComponent,
+      },
+      {
+        path: 'users/form',
+        component: UsersformComponent,
+      },
+      {
+        path: 'users/form/:id',
+        component: UsersformComponent,
+      },
     ],
   },
 ];
@@ -77,8 +93,10 @@ const UXModules = [
   CardModule,
   ToolbarModule,
   ButtonModule,
+  TagModule,
   TableModule,
   InputTextModule,
+  InputMaskModule,
   InputNumberModule,
   InputSwitchModule,
   InputTextareaModule,
@@ -103,6 +121,8 @@ const UXModules = [
     CategoriesformComponent,
     ProductsComponent,
     ProductsformComponent,
+    UsersComponent,
+    UsersformComponent,
   ],
   imports: [
     BrowserModule,
