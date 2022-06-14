@@ -97,7 +97,7 @@ router.route('/')
 // ID
 router.route('/:id')
     .get(async (req, res) => {
-        const product = await Product.findById(req.params.id)
+        const product = await Product.findById(req.params.id).populate('category');
 
         if(!product) {
             res.status(500).json({ success: false })
@@ -105,7 +105,7 @@ router.route('/:id')
 
         res.send(product)
     })
-    .put(async (req, res) => {
+    .put(uploadOptions.single('image'), async (req, res) => {
         if(!mongoose.isValidObjectId(req.params.id)) {
             return res.status(400).send('Invalid Product Id')
         }
