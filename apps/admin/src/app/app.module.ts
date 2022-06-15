@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGard, JwtInterceptor, UsersModule } from '@shopati/users';
 
 // Components
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
@@ -43,13 +43,15 @@ import { UsersformComponent } from './pages/users/usersform/usersform.component'
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrdersdetailComponent } from './pages/orders/ordersdetail/ordersdetail.component';
 
+
 const routes: Routes = [
   {
     path: '',
     component: ShellComponent,
+    canActivate: [AuthGard],
     children: [
       {
-        path: '',
+        path: 'dashboard',
         component: DashboardComponent,
       },
       {
@@ -125,7 +127,6 @@ const UXModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    NxWelcomeComponent,
     DashboardComponent,
     ShellComponent,
     SidebarComponent,
@@ -141,10 +142,16 @@ const UXModules = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    UsersModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     ...UXModules,
   ],
-  providers: [CategoriesService, MessageService, ConfirmationService],
+  providers: [
+    CategoriesService,
+    MessageService,
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

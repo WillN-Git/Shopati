@@ -55,6 +55,10 @@
               &.logout {
                 color: var(--blue-500);
               }
+
+              &.logout:hover {
+                cursor: pointer;
+              }
             }
           }
         }
