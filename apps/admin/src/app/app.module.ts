@@ -31,6 +31,7 @@ import { TagModule } from 'primeng/tag';
 import { EditorModule } from 'primeng/editor';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
+import { FieldsetModule } from 'primeng/fieldset';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -39,6 +40,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersformComponent } from './pages/users/usersform/usersform.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersdetailComponent } from './pages/orders/ordersdetail/ordersdetail.component';
 
 const routes: Routes = [
   {
@@ -85,6 +88,14 @@ const routes: Routes = [
         path: 'users/form/:id',
         component: UsersformComponent,
       },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
+        path: 'orders/:id',
+        component: OrdersdetailComponent,
+      },
     ],
   },
 ];
@@ -104,6 +115,7 @@ const UXModules = [
   ToastModule,
   DropdownModule,
   EditorModule,
+  FieldsetModule,
   ColorPickerModule,
   ReactiveFormsModule,
   ConfirmDialogModule,
@@ -123,6 +135,8 @@ const UXModules = [
     ProductsformComponent,
     UsersComponent,
     UsersformComponent,
+    OrdersComponent,
+    OrdersdetailComponent,
   ],
   imports: [
     BrowserModule,
