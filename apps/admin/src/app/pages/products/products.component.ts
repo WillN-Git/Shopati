@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '@shopati/products';
 import { Product } from '@types'; 
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'admin-products',
   templateUrl: './products.component.html',
   styles: [],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
+
+  endSubs$: Subject<any> = new Subject();
 
   constructor(
     private router: Router,
@@ -21,6 +24,10 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._getProducts();
+  }
+
+  ngOnDestroy(): void {
+      this.endSubs$.complete();
   }
 
   deleteProduct(id: string) {
@@ -56,8 +63,11 @@ export class ProductsComponent implements OnInit {
   }
 
   private _getProducts() {
-    this.productsService.getProducts().subscribe(prod => {
-      this.products = prod;
-    });
+    this.productsService
+        .getProducts()
+        .pipe(takeUntil(this.endSubs$))
+        .subscribe(prod => {
+          this.products = prod;
+        });
   }
 }

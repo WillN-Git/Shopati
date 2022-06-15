@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Category } from '@types';
 import { CategoriesService } from '@shopati/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
   selector: 'admin-categories',
   templateUrl: './categories.component.html',
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
+
+  endSubs$: Subject<any> = new Subject()
 
   constructor(
     private router: Router,
@@ -21,6 +24,10 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this._getCategories();
+  }
+
+  ngOnDestroy(): void {
+    this.endSubs$.complete();
   }
 
   deleteCategory(id: string) {
@@ -56,8 +63,11 @@ export class CategoriesComponent implements OnInit {
   }
 
   private _getCategories() {
-    this.categoriesService.getCategories().subscribe(cats => {
-      this.categories = cats;
-    })
+    this.categoriesService
+        .getCategories()
+        .pipe(takeUntil(this.endSubs$))
+        .subscribe(categories => {
+          this.categories = categories;
+        });
   }
 }

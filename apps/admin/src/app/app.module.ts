@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthGard, JwtInterceptor, UsersModule } from '@shopati/users';
+import { JwtInterceptor, UsersModule } from '@shopati/users';
 
 // Components
 import { AppComponent } from './app.component';
@@ -42,65 +41,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersformComponent } from './pages/users/usersform/usersform.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { OrdersdetailComponent } from './pages/orders/ordersdetail/ordersdetail.component';
+import { AppRoutingModule } from './app-routing.module';
 
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ShellComponent,
-    canActivate: [AuthGard],
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-      {
-        path: 'categories',
-        component: CategoriesComponent,
-      },
-      {
-        path: 'categories/form',
-        component: CategoriesformComponent,
-      },
-      {
-        path: 'categories/form/:id',
-        component: CategoriesformComponent,
-      },
-      {
-        path: 'products',
-        component: ProductsComponent,
-      },
-      {
-        path: 'products/form',
-        component: ProductsformComponent,
-      },
-      {
-        path: 'products/form/:id',
-        component: ProductsformComponent,
-      },
-      {
-        path: 'users',
-        component: UsersComponent,
-      },
-      {
-        path: 'users/form',
-        component: UsersformComponent,
-      },
-      {
-        path: 'users/form/:id',
-        component: UsersformComponent,
-      },
-      {
-        path: 'orders',
-        component: OrdersComponent,
-      },
-      {
-        path: 'orders/:id',
-        component: OrdersdetailComponent,
-      },
-    ],
-  },
-];
 
 const UXModules = [
   CardModule,
@@ -143,8 +85,8 @@ const UXModules = [
     BrowserModule,
     HttpClientModule,
     UsersModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     ...UXModules,
+    AppRoutingModule,
   ],
   providers: [
     CategoriesService,

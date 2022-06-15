@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Order } from '@types';
 import { ORDER_STATUS } from './orders.constants';
 import { OrdersService } from '@shopati/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'admin-orders',
   templateUrl: './orders.component.html',
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
 
   orderStatus = ORDER_STATUS;
+
+  endSubs$: Subject<any> = new Subject();
 
   constructor(
     private router: Router,
@@ -25,10 +28,17 @@ export class OrdersComponent implements OnInit {
     this._getOrders();
   }
 
+  ngOnDestroy(): void {
+      this.endSubs$.complete();
+  }
+
   private _getOrders() {
-    this.ordersService.getOrders().subscribe((orders: Order[]) => {
-      this.orders = orders;
-    });
+    this.ordersService
+        .getOrders()
+        .pipe(takeUntil(this.endSubs$))
+        .subscribe((orders: Order[]) => {
+          this.orders = orders;
+        });
   }
 
   showOrder(id: string) {
