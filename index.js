@@ -23,7 +23,7 @@ const {
 
 
 const app = express()
-const uri = `mongodb+srv://${DBUSER}:${DBPSW}@market.vxvvjnf.mongodb.net/${DBTEST}?retryWrites=true&w=majority`
+const uri = `mongodb+srv://${DBUSER}:${DBPSW}@market.vxvvjnf.mongodb.net/${DBNAME}?retryWrites=true&w=majority`
 
 
 app.use(cors())
@@ -62,6 +62,5 @@ mongoose.connect(uri)
 
 // Server
 app.listen(PORT, () => {
-    console.log(PORT)
     console.log(`server is running on http://localhost:${PORT}`)
 })
