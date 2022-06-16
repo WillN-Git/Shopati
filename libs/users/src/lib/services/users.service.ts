@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment as env } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User } from '@types';
 
 const URL_users = env.API_URL + 'users';
@@ -30,6 +30,11 @@ export class UsersService {
 
   deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${URL_users}/${id}`);
+  }
+
+  getUsersCount(): Observable<number> {
+    return this.http.get<number>(`${URL_users}/get/count`)
+                    .pipe(map((o: any) => o.userCount));
   }
 
 }
