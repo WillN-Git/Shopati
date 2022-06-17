@@ -11,9 +11,12 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
 // UI/UX
-import  { UIModule } from '@shopati/ui'
-import { AccordionModule } from 'primeng/accordion'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { UIModule } from '@shopati/ui';
+import { AccordionModule } from 'primeng/accordion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './shared/nav/nav.component';
+import { ProductsModule } from '@shopati/products';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -26,10 +29,7 @@ const routes: Routes = [
   },
 ];
 
-const UXModules = [
-  AccordionModule,
-  BrowserAnimationsModule
-]
+const UXModules = [AccordionModule, BrowserAnimationsModule];
 
 @NgModule({
   declarations: [
@@ -39,12 +39,15 @@ const UXModules = [
     ProductlistComponent,
     HeaderComponent,
     FooterComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
-    UIModule, 
-    ...UXModules
+    ProductsModule,
+    UIModule,
+    ...UXModules,
   ],
   providers: [],
   bootstrap: [AppComponent],
