@@ -132,13 +132,15 @@ router.route('/get/totalsales')
             return res.status(400).send('The order sales cannot be generated')
           }
         
+          console.log("TOTAL => ", totalSales);
+
           res.send({ totalsales: totalSales.pop().totalsales })
     })
 
 // Get count
 router.route('/get/count')
     .get(async (req, res) => {
-        const orderCount = await Order.countDocuments(count => count)
+        const orderCount = await Order.countDocuments()
 
         if(!orderCount) {
             res.status(500).json({ success: false })

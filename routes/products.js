@@ -189,7 +189,7 @@ router.route('/get/featured/:count')
 // Get count
 router.route('/get/count')
     .get(async (req, res) => {
-        const productCount = await Product.countDocuments((count) => count)
+        const productCount = await Product.countDocuments()
 
         if(!productCount) {
             res.status(500).json({ success: false })

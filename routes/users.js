@@ -152,12 +152,14 @@ router.route('/resgister')
 // COUNT
 router.route('/get/count')
     .get(async (req, res) => {
-        const userCount = await User.countDocuments(count => count)
+        const userCount = await User.countDocuments()
 
         if(!userCount) {
             res.status(500).json({ success: false })
         }
 
+        // console.log("USER COUNT => ", typeof userCount); => number
+        
         res.send({ userCount })
     })
 
