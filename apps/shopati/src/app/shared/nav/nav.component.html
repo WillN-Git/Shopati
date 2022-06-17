@@ -1,5 +1,11 @@
 <ul class="nav">
-    <li><a routeLink="/">Home</a></li>
-    <li><a routeLink="/product">Product</a></li>
-    <li><a routeLink="/contact">Contact</a></li>
+    <li>
+        <a (click)="navTo('/')" [class]="{ 'active': activeRoute === '/' }" >Home</a>
+    </li>
+    <li>
+        <a (click)="navTo('/products')" [class]="{ 'active': activeRoute === '/products' }">Products</a>
+    </li>
+    <li>
+        <a (click)="navTo('/contact')" [class]="{ 'active': activeRoute === '/contact' }">Contact</a>
+    </li>
 </ul>

@@ -12,9 +12,13 @@
     }
 
     .image {
-        width: 60%;
+        width: auto;
         height: 150px;
         margin-top: -25%;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .name {

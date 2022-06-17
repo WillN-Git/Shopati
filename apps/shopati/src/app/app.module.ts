@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
@@ -9,14 +10,19 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProductlistComponent } from './pages/productlist/productlist.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ProductdetailComponent } from './pages/productdetail/productdetail.component';
 
 // UI/UX
 import { UIModule } from '@shopati/ui';
+import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@shopati/products';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
   {
@@ -24,12 +30,28 @@ const routes: Routes = [
     component: HomepageComponent,
   },
   {
-    path: 'productlist',
+    path: 'products',
     component: ProductlistComponent,
   },
+  {
+    path: 'category/:id',
+    component: ProductlistComponent,
+  },
+  {
+    path: 'products/:id',
+    component: ProductdetailComponent,
+  }
 ];
 
-const UXModules = [AccordionModule, BrowserAnimationsModule];
+const UXModules = [
+  AccordionModule,
+  BrowserAnimationsModule,
+  CheckboxModule,
+  FormsModule,
+  RatingModule,
+  ButtonModule,
+  InputNumberModule,
+];
 
 @NgModule({
   declarations: [
@@ -40,6 +62,7 @@ const UXModules = [AccordionModule, BrowserAnimationsModule];
     HeaderComponent,
     FooterComponent,
     NavComponent,
+    ProductdetailComponent,
   ],
   imports: [
     BrowserModule,

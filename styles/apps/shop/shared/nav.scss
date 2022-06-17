@@ -10,6 +10,11 @@
                 color: $primary-color;
                 cursor: pointer;
             }
+
+            &:active,
+            &.active {
+                color: $primary-color;
+            }
         }
     }
 }
