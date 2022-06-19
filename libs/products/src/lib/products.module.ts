@@ -10,9 +10,10 @@ import { CategoriesbannerComponent } from './components/categoriesbanner/categor
 
 // UX Module
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ButtonModule],
+  imports: [CommonModule, RouterModule, ButtonModule, ToastModule],
   declarations: [
     ProductsearchComponent,
     CategoriesbannerComponent,

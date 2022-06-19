@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from '@shopati/orders';
 import { ProductsService } from '@shopati/products';
-import { Product } from '@types';
+import { CartItem, Product } from '@types';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -15,9 +16,13 @@ export class ProductdetailComponent implements OnInit, OnDestroy {
 
   endSubs$: Subject<any> = new Subject();
 
-  quantity = 0;
+  quantity = 1;
   
-  constructor(private route: ActivatedRoute, private productsService: ProductsService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService,
+    private productsService: ProductsService
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
@@ -39,6 +44,13 @@ export class ProductdetailComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    console.log("Add !");
+    if(this.product.id) {
+      const cartItem: CartItem = {
+        productID: this.product.id,
+        quantity: this.quantity,
+      }
+
+      this.cartService.setCartItem(cartItem);
+    }
   }
 }

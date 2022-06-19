@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { environment as env } from 'environments/environment';
 
 const URL_orders = env.API_URL + 'orders';
+const URL_products = env.API_URL + 'products';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,9 @@ export class OrdersService {
   getTotalSales(): Observable<number> {
     return this.http.get<number>(`${URL_orders}/get/totalsales`)
                     .pipe(map((o: any) => o.totalsales));
+  }
+
+  getProduct(id: string): Observable<any> {
+    return this.http.get<any>(`${URL_products}/${id}`);
   }
 }

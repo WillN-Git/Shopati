@@ -1,8 +1,8 @@
 import { OrderItem, User } from './';
 
 export interface Order {
-    id: string;
-    orderItems: OrderItem;
+    id?: string;
+    orderItems: OrderItem | OrderItem[];
     shippingAddress1: string;
     shippingAddress2?: string;
     city: string;
@@ -11,6 +11,6 @@ export interface Order {
     phone: string;
     status: number;
     totalPrice?: string;
-    user: User;
+    user: User | string;
     dateOrdered?: string;
 }

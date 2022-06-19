@@ -11,6 +11,8 @@ import { ProductlistComponent } from './pages/productlist/productlist.component'
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProductdetailComponent } from './pages/productdetail/productdetail.component';
+import { CartpageComponent } from './pages/cartpage/cartpage.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 // UI/UX
 import { UIModule } from '@shopati/ui';
@@ -23,6 +25,12 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
+import { OrdersModule } from '@shopati/orders';
+import { DropdownModule } from 'primeng/dropdown';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { ThankyouComponent } from './pages/thankyou/thankyou.component';
 
 const routes: Routes = [
   {
@@ -40,6 +48,18 @@ const routes: Routes = [
   {
     path: 'products/:id',
     component: ProductdetailComponent,
+  },
+  {
+    path: 'cart',
+    component: CartpageComponent,
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+  },
+  {
+    path: 'thankyou',
+    component: ThankyouComponent,
   }
 ];
 
@@ -51,6 +71,10 @@ const UXModules = [
   RatingModule,
   ButtonModule,
   InputNumberModule,
+  DropdownModule,
+  ReactiveFormsModule,
+  InputMaskModule,
+  InputTextModule,
 ];
 
 @NgModule({
@@ -63,16 +87,21 @@ const UXModules = [
     FooterComponent,
     NavComponent,
     ProductdetailComponent,
+    CartpageComponent,
+    CheckoutComponent,
+    ThankyouComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     ProductsModule,
+    OrdersModule,
     UIModule,
     ...UXModules,
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [CartpageComponent, CheckoutComponent, ThankyouComponent],
 })
 export class AppModule {}

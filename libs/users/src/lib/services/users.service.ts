@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { environment as env } from 'environments/environment';
 import { map, Observable } from 'rxjs';
 import { User } from '@types';
+import * as countriesLib from 'i18n-iso-countries';
+
+declare const require: any;
 
 const URL_users = env.API_URL + 'users';
 
@@ -37,4 +40,17 @@ export class UsersService {
                     .pipe(map((o: any) => o.userCount));
   }
 
+  getCountries(): { id: string; name: string }[] {
+    countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
+
+    return Object.entries(countriesLib.getNames('en', { select: 'official' }))
+                .map((entry) => ({
+                  id: entry[0],
+                  name: entry[1],
+                }));
+  }
+
+  getCountry(countryKey: string): string {
+    return countriesLib.getName(countryKey, 'en');
+  }
 }
