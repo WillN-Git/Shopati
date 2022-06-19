@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProductlistComponent } from './pages/productlist/productlist.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -31,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { ThankyouComponent } from './pages/thankyou/thankyou.component';
+import { AuthGard, UsersModule } from '@shopati/users';
 
 const routes: Routes = [
   {
@@ -55,6 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
+    canActivate: [AuthGard],
     component: CheckoutComponent,
   },
   {
@@ -80,7 +81,6 @@ const UXModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    NxWelcomeComponent,
     HomepageComponent,
     ProductlistComponent,
     HeaderComponent,
@@ -97,6 +97,7 @@ const UXModules = [
     RouterModule.forRoot(routes),
     ProductsModule,
     OrdersModule,
+    UsersModule,
     UIModule,
     ...UXModules,
   ],
