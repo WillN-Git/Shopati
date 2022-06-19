@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+body {
+    @include zero-gap;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.p-component {
+    font-family: 'Open Sans', sans-serif;   
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    @include reset-list;
+}
